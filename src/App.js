@@ -1,25 +1,33 @@
-import logo from './logo.svg';
+import React, {useState, useEffect} from "react";
+import Login from './login.js';
 import './App.css';
 
-function App() {
-  return (
+const App = () => {
+  const[user, setUser]=useState('');
+  const[email, setEmail]=useState('');
+  const[password, setPassword]=useState('');
+  const[emailError, setEmailError]=useState("");
+  const[passwordError, setPasswordError]=useState('');
+  const[hasAccount, setHasAccount]=useState(false);
+
+  const handleLogin= () => {
+
+  }
+ 
+  return(
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Login
+      email={email}
+      setEmail={setEmail}
+      password={password}
+      setPassword={setPassword}
+      hasAccount={hasAccount}
+      setHasAccount={setHasAccount}
+      emailError={emailError}
+      passwordError={passwordError}
+      />
     </div>
-  );
+  )
 }
 
 export default App;
