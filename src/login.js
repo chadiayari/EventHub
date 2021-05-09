@@ -1,5 +1,8 @@
 import React from 'react';
+import Form from 'components/Form';
 const Login = (props) => {
+
+    
 
     const {email, 
         setEmail, 
@@ -40,7 +43,7 @@ const Login = (props) => {
                         </>
                     ) : (
                         <>
-                        <button>
+                        <button onClick={handleClick}>
                             Sign Up
                         </button>
                         <p>Already having an account? <span onClick={()=> setHasAccount(!hasAccount)}>Sign In</span></p>
@@ -50,6 +53,8 @@ const Login = (props) => {
             </div>
         </section>
     )
+
+    
 } 
 
 export default Login;
