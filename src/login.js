@@ -1,14 +1,14 @@
 import React from 'react';
-import Form from 'components/Form';
-const Login = (props) => {
 
-    
+const Login = (props) => {
 
     const {email, 
         setEmail, 
         password, 
         setPassword, 
         hasAccount,
+        handleLogin,
+        handleLogout,
         setHasAccount, 
         emailError, 
         passwordError
@@ -36,17 +36,18 @@ const Login = (props) => {
                 <div className="btnContainer">
                     {hasAccount ? (
                         <>
-                        <button>
+                        <button onClick={handleLogin}>
                             Sign In
                         </button>
                         <p>Don't have an account? <span onClick={()=> setHasAccount(!hasAccount)}>Sign Up</span></p>
                         </>
                     ) : (
                         <>
-                        <button onClick={handleClick}>
+                         <button>
                             Sign Up
                         </button>
-                        <p>Already having an account? <span onClick={()=> setHasAccount(!hasAccount)}>Sign In</span></p>
+                        <p>Already having an account?
+                        <span onClick={()=> setHasAccount(!hasAccount)}>Sign In</span></p>
                         </>
                     )}
                 </div>
