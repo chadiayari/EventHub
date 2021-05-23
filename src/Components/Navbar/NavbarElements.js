@@ -10,6 +10,8 @@ export const Nav = styled.nav`
   justify-content: left;
   padding: 50px;
   font-weight: 400;
+  position: sticky;
+  display: flex;
 `;
 
 export const NavLink = styled(Link)`

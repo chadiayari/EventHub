@@ -38,9 +38,9 @@ export class Success extends Component {
             <br />
             <div>
             <center>
-            <Link to='/'>
+            <Link to='/place'>
             <Button
-              onClick={"/"}
+              onClick={"/place"}
               color="primary"
               variant="contained">
                 OKAY

@@ -64,7 +64,7 @@ export function FormPersonalDetails(props) {
 
             <br />
 
-            <p>What typee of event are you hosting?</p>
+            <p>What type of event are you hosting?</p>
             <Select
             id="type"
               onChange={handleChange('type')}
