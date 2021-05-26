@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import FormUserDetails from './FormUserDetails';
 import FormPersonalDetails from './FormPersonalDetails';
 import Confirm from './Confirm';
-import Success from './Success';
 import {Link } from 'react-router-dom'
+import './UploadImg.css'
+
 
 export class Form extends Component {
   state = {
@@ -15,7 +16,10 @@ export class Form extends Component {
     type: '',
     category: '',
     place:'',
-    date:'',
+    name : '',
+    tags : '',
+    eventName : '',
+    img:''
   };
 
   // Proceed to next step
@@ -36,29 +40,15 @@ export class Form extends Component {
 
   // Handle fields change
   handleChange = input => e => {
+    localStorage.setItem(input , e.target.value)
     this.setState({ [input]: e.target.value });
   }; 
-
- 
-
-  handleDateChange = ( date) =>{
-    this.setState({
-      date
-    })
-  }
-
 
   render() {
     
     const { step } = this.state;
-    const { firstName, lastName, email, number, type, category, place, date } = this.state;
-    const values = { firstName, lastName, email, number, type, category, place, date};
-
-
-    if(document.getElementById('navbar')){
-      console.log("found")
-      document.getElementById('navbar').style.display ="none"}
-
+    const { firstName, lastName, email, number, type, category, place, name,tags,eventName, img } = this.state;
+    const values = { firstName, lastName, email, number, type, category, place, name,tags,eventName, img};
 
     switch (step) {
       case 1:
@@ -96,10 +86,6 @@ export class Form extends Component {
             values={values}
           />
         );
-      case 4:
-        return <Success />;
-      default:
-        (console.log('This is a multi-step form built with React.'))
     }
   }
 }

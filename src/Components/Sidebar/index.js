@@ -11,22 +11,28 @@ import {
 } from './SidebarElements';
 
 const Sidebar = ({ isOpen, toggle }) => {
+
+  const handleLogout = ( ) =>{
+    localStorage.setItem('loggedIn','false')
+    console.log(localStorage.getItem('loggedIn'))
+  }
+
   return (
     <SidebarContainer style={{zIndex:"1302"}} isOpen={isOpen} onClick={toggle}>
       <Icon onClick={toggle}>
         <CloseIcon />
       </Icon>
       <SidebarMenu>
-        <SidebarLink to='/places'>Our Places</SidebarLink>
-        <SidebarLink to='/'>Trends</SidebarLink>
+        <SidebarLink to='/place'>Our Places</SidebarLink>
+        <SidebarLink to='/events'>Live Events</SidebarLink>
         <SidebarLink to='/about-us'>About Us</SidebarLink>
         <SidebarLink to='/eventform'>Create Event</SidebarLink>
       </SidebarMenu>
       <SideBtnWrap>
-        <SidebarRoute to='/login'>LOGIN</SidebarRoute>
+        {localStorage.getItem('loggedIn')&& localStorage.getItem('loggedIn').toString() === 'true'  ?<SidebarRoute onClick={handleLogout} to='/login'>LOGOUT</SidebarRoute> :<SidebarRoute to='/login'>LOGIN</SidebarRoute>}
       </SideBtnWrap>
     </SidebarContainer>
   );
 };
-
+  
 export default Sidebar;

@@ -1,5 +1,10 @@
 .searchPage__info {
     padding: 20px;
+    position: fixed;
+    top: 12%;
+    width: 100vw;
+    z-index: 150;
+    background: white;
   }
 
 .searchPage__info > p {

@@ -13,7 +13,7 @@ import {
 
 const Hero = () => {
 
-
+  console.log(localStorage.getItem('loggedIn'))
   return (
     <HeroContainer>
    
@@ -21,7 +21,7 @@ const Hero = () => {
         <HeroItems>
           <HeroH1>Sparkling Inspiration</HeroH1>
           <HeroP>Start Your Own Event Now</HeroP>
-          <Link to="/eventform"><HeroBtn>Create Event</HeroBtn></Link>
+         {localStorage.getItem('loggedIn')&& <Link to="/eventform"><HeroBtn>Create Event</HeroBtn></Link>}
           
         </HeroItems>
       </HeroContent>

@@ -8,10 +8,14 @@ import Form from './Components/Form/components/Form';
 import {history} from './history';
 import Places from './Components/Places/Places';
 import Login from './Login/Login';
+import Events from './Components/Events/Events';
+import Event from './Components/Event/Event';
+import Success from './Components/Places/Success';
 
 function App() {
 
   console.log('location',history.location.pathname )
+
   return (
     <BrowserRouter history={history}>
       <GlobalStyle />
@@ -25,7 +29,11 @@ function App() {
       <Route path="/about-us" render={(props) => <Propos {...props} />} />
       <Route path="/eventform" render={(props) => <Form {...props} />} />
       <Route path="/place" component={Places}/>
+      <Route path="/success" render={(props) => <Success {...props} />} />
       <Route path="/login" component={Login}/>
+      <Route path="/events" render={(props) => <Events {...props} />} />
+      <Route path="/event/:id" render={(props) => <Event {...props} />} />
+
       </Switch>
       </div>
       <div style={{zIndex:10000}}>

@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
+ 
 export class FormUserDetails extends Component {
   continue = e => {
     e.preventDefault();
@@ -24,7 +24,6 @@ export class FormUserDetails extends Component {
           >
             <AppBar title="Enter User Details" />
             <TextField
-            className="text"
               placeholder="Enter Your First Name"
               label="First Name"
               onChange={handleChange('firstName')}
@@ -51,12 +50,15 @@ export class FormUserDetails extends Component {
               fullWidth
             />
             <br />
+            <center>
             <Button
               className="button"
               color="primary"
-              variant="contained"
+              variant="outlined"
               onClick={this.continue}
+              style={{margin:"auto"}}
             >Continue</Button>
+            </center>
           </Dialog>
         </>
       </MuiThemeProvider>

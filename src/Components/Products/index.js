@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import {
   ProductsContainer,
   ProductWrapper,
@@ -8,23 +10,26 @@ import {
   ProductImg,
   ProductInfo,
   ProductDesc,
-  ProductPrice,
   ProductButton
 } from './ProductsElements';
+
 
 const Products = ({ heading, data }) => {
   return (
     <ProductsContainer>
       <ProductsHeading>{heading}</ProductsHeading>
       <ProductWrapper>
-        {data.map((product, index) => {
+        {data.map((event, index) => {
           return (
             <ProductCard key={index}>
-              <ProductImg src={product.img} alt={product.alt} />
+             {event.img &&  <ProductImg src={event.img} alt={event.alt} />}
               <ProductInfo>
-                <ProductTitle>{product.name}</ProductTitle>
-                <ProductDesc>{product.desc}</ProductDesc>
-                <ProductButton>{product.button}</ProductButton>
+                <ProductTitle>{event.name}</ProductTitle>
+                <ProductDesc>{event.startDate}</ProductDesc>
+                <ProductDesc>{event.endDate}</ProductDesc>
+                <Link to={`/event/${event._id}`}>
+                <ProductButton>View Details</ProductButton>
+                </Link>
               </ProductInfo>
             </ProductCard>
           );

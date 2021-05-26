@@ -1,9 +1,10 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState} from 'react'
 import axios from 'axios'
 import { Form, Input, Button, Checkbox } from 'antd';
-import { history} from '../history'
 import './Login.css'
-
+import { Redirect } from 'react-router-dom'
+import Navbar from '../Components/Navbar';
+import Sidebar from '../Components/Sidebar';
 
 const layout = {
     labelCol: {
@@ -21,13 +22,28 @@ const layout = {
   };
 
 export default function Login(){
-               
+
+    const [loggedIn,setLoggedIn] = useState(false)
+    const [isOpen, setIsOpen] = useState(false);
+     
+    
+      const toggle = () => {
+        setIsOpen(!isOpen);
+      };
+
+
     const onFinish = (values) => {
         axios.post('http://localhost:5000/api/auth',{
             email : values.email,
             password: values.password
         })
-        .then(res => history.push("/"))
+        .then(res => {
+          setLoggedIn(true)
+          localStorage.setItem("loggedIn",true)
+          localStorage.setItem('userId',res.data.user._id)
+          localStorage.setItem('token',res.data.token)
+          localStorage.setItem('userBody',JSON.stringify(res.data.user))
+    })
         .catch(err => console.error(err))
       };
     
@@ -35,58 +51,71 @@ export default function Login(){
         alert('invalid email or password')
       };
 
-
-    return(
-        <div className="login">
-            <Form {...layout}
-            name="basic"
-            initialValues={{
-            remember: true,
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            >
-
-            <Form.Item style={{color:'white'}}
-              label="email"
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  type:"email",
-                  message: 'Please input a valid email!',
-                },
-              ]}
-            >
-            <Input/>
-            
-            </Form.Item>
-            <br />
-            <Form.Item style={{color:'white'}}
-              label="Password"
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your password!',
-                },
-              ]}
-            >
-             
-            <Input.Password />
-            </Form.Item>
-
-            <Form.Item style={{color:'white'}} {...tailLayout} name="remember" valuePropName="checked"> 
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
-
-            <Form.Item {...tailLayout}>
-              <Button type="primary" htmlType="submit" className="button">
-                Submit
-              </Button>
-            </Form.Item>
-
-          </Form>
-        </div>
-    )
+      
+      if(loggedIn){
+        return <Redirect to="/"/>
+      }else{
+        return(
+          <div>
+          <Navbar toggle={toggle} />
+          <Sidebar isOpen={isOpen} toggle={toggle} />
+  
+          <div className="login" style={{marginTop:"10%"}}>
+              <Form {...layout}
+              name="basic"
+              initialValues={{
+              remember: true,
+              }}
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
+              >
+  
+              <Form.Item style={{color:'white', margin: "14px 0"}}
+                label="email"
+                name="email"
+                rules={[
+                  {
+                    required: true,
+                    type:"email",
+                    message: 'Please input a valid email!',
+                  },
+                ]}
+              >
+              <div style={{margin: "14px 0"}}>
+                <Input/>
+              </div>
+              
+              </Form.Item >
+              <br />
+              <Form.Item style={{color:'white', margin: "14px 0"}}
+                label="Password"
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your password!',
+                  },
+                ]}
+              >
+              <div style={{margin: "14px 0"}}>
+              <Input.Password />
+              </div>
+              </Form.Item>
+  
+              <Form.Item style={{color:'white'}} {...tailLayout} name="remember" valuePropName="checked"> 
+                <Checkbox>Remember me</Checkbox>
+              </Form.Item>
+  
+              <Form.Item {...tailLayout}>
+                <Button type="primary" htmlType="submit" className="button">
+                  Submit
+                </Button>
+              </Form.Item>
+  
+            </Form>
+          </div>
+          </div>
+      )
+      }
+ 
 }

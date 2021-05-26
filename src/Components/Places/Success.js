@@ -17,11 +17,6 @@ export class Success extends Component {
     this.props.nextStep();
   };
 
-  back = e => {
-    e.preventDefault();
-    this.props.prevStep();
-  };
-
 
   render() { 
     return (
@@ -33,14 +28,15 @@ export class Success extends Component {
             maxWidth='sm'
           >
             <AppBar title="Success" />
-            <h1>Thank You For Your Submission</h1>
-            <p>You will get an email with further instructions.</p>
+            <center>
+            <h1>Event Created Successfully</h1>
+            <p>Thank You For Your Submission</p>
+            </center>
             <br />
             <div>
             <center>
-            <Link to='/place'>
+            <Link to='/'>
             <Button
-              onClick={"/place"}
               color="primary"
               variant="contained">
                 OKAY

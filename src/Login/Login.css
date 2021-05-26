@@ -64,9 +64,13 @@
 
 label {
     color: white;
-    margin: 14px 0;
+    
     display: block;
     font-size: 22px;
     line-height: 1; 
     font-weight: normal;
   }
+
+span{
+  font-size: 15px;
+}

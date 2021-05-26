@@ -1,20 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import AppBar from '@material-ui/core/AppBar';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-
-import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-
-import './styles.css';
-
+import TextField from '@material-ui/core/TextField';
+import UploadImg from './UploadImg'
 
 export function FormPersonalDetails(props) {
   
@@ -30,14 +21,6 @@ export function FormPersonalDetails(props) {
     props.prevStep();
   };
     
-
-
-  const [selectedDate, setSelectedDate] = React.useState(new Date('2021-05-18'));
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    props.changeDate(date)
-  };
   
     return (
       <MuiThemeProvider>
@@ -47,7 +30,16 @@ export function FormPersonalDetails(props) {
             fullWidth
             maxWidth='sm'
           >
-            <AppBar title="Enter Personal Details" />
+
+              <TextField
+              placeholder="Enter Event's name"
+              label="Event name"
+              onChange={handleChange('eventName')}
+              defaultValue={values.eventName}
+              margin="normal"
+              fullWidth
+            />
+            <br/>
 
             <p>How many people will attend your event?</p>
             <Select
@@ -64,17 +56,14 @@ export function FormPersonalDetails(props) {
 
             <br />
 
-            <p>What type of event are you hosting?</p>
+            <p>What type of place are you looking for?</p>
             <Select
             id="type"
               onChange={handleChange('type')}
               defaultValue={values.type}
             >
-              <MenuItem value={"Conference"}>Conference</MenuItem>
-              <MenuItem value={"Camp"}>Camp</MenuItem>
-              <MenuItem value={"Party"}>Party</MenuItem>
-              <MenuItem value={"Gala"}>Gala</MenuItem>
-              <MenuItem value={"Meeting"}>Meeting</MenuItem>
+              <MenuItem value={"RESTAURANT"}>RESTAURANT</MenuItem>
+              <MenuItem value={"HOTEL"}>HOTEL</MenuItem>
             </Select>
 
             <br />
@@ -85,9 +74,7 @@ export function FormPersonalDetails(props) {
               onChange={handleChange('category')}
               defaultValue={values.category}
             >
-              <MenuItem value={"Music"}>Music</MenuItem>
-              <MenuItem value={"Business"}>Business</MenuItem>
-              <MenuItem value={"Travel"}>Travel</MenuItem>
+              <MenuItem value={"Conference"}>Conference</MenuItem>
               <MenuItem value={"Lifestyle"}>Lifestyle</MenuItem>
               <MenuItem value={"Family"}>Family</MenuItem>
             </Select>  
@@ -107,37 +94,34 @@ export function FormPersonalDetails(props) {
               <MenuItem value={"Bizerte"}>Bizerte</MenuItem>
             </Select>
               <br />
-
-              <p>When is your Event?</p>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid>
-              <KeyboardDatePicker
-                margin="none"
-                id="date"
-                label="Event Date Picker"
-                format="MM/dd/yyyy"
-                value={selectedDate}
-                onChange={handleDateChange}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-              </Grid>
-            </MuiPickersUtilsProvider>
-              
+              <TextField
+              placeholder="Enter Tags associated with your event"
+              label="Tags"
+              onChange={handleChange('tags')}
+              defaultValue={values.tags}
+              margin="normal"
+              fullWidth
+            />
             
               <br />
 
+            <p>Upload image for your event</p>
+            <UploadImg cardName="Input Image"
+            onChange={handleChange('img')}
+            />,
+
             <Button
-              variant="contained"
+              variant="outlined"
               onClick={back}
+              style={{margin:"auto"}}
             >Back</Button>
 
             <br />
-
+            
             <Button
+              style={{margin:"auto"}}
               color="primary"
-              variant="contained"
+              variant="outlined"
               onClick={contiinue}
             >Continue</Button>
           </Dialog>
