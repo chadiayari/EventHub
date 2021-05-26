@@ -2,6 +2,7 @@ import React from 'react';
 import './SearchResult.css';
 import StarIcon from "@material-ui/icons/Star";
 import { Button } from "@material-ui/core";
+import axios from 'axios'
 
 
 function SearchResult(props) {
@@ -15,6 +16,18 @@ function SearchResult(props) {
         })
 
     }
+
+    const deletePlace = ( ) =>{
+        console.log("props.id",props.id)
+        axios.delete(`http://localhost:5000/api/lieu/${props.id}`,{
+            headers:{
+                "x-auth-token" : localStorage.getItem('token')
+            }
+        }) 
+            .then(res => alert('place deleted'))
+            .catch(err => console.error(err))
+    }
+
     return (
         <div className='searchResult'>
             <img src={props.img} alt="" />
@@ -37,7 +50,8 @@ function SearchResult(props) {
                             <p>{props.star}</p>
                         </p>
                     </div>
-              
+                    {
+                        (JSON.parse(localStorage.getItem('userBody'))).isAdmin &&  <Button style={{transform : "translateX(290%)",backgroundColor:"red",color:"white"}} variant="contained" onClick={deletePlace}>Delete</Button>}
                     <Button style={{transform : "translateX(290%)"}} variant="contained" onClick={handleddReservation}>Add Reservation</Button>
                 </div>
             </div>

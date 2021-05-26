@@ -20,6 +20,10 @@ function Home() {
     if(localStorage.getItem('loggedIn')){
       axios.post(`http://localhost:5000/api/evenement/recommended`,{
         tags : JSON.parse(localStorage.getItem('userBody')).interests
+    },{
+      headers: {
+        "x-auth-token" : localStorage.getItem('token')
+      }
     })
         .then(res=> {
             console.log("recommenede events",res.data)

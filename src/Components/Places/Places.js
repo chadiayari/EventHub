@@ -68,7 +68,11 @@ export default function Places(props){
             tags : localStorage.getItem('tags').split(' ')
         }
 
-        axios.post('http://localhost:5000/api/evenement/add',event)
+        axios.post('http://localhost:5000/api/evenement/add',event,{
+            headers:{
+                "x-auth-token" : localStorage.getItem('token')
+            }
+        })
             .then(res => console.log(res))
             .catch(err => console.error(err))
     }
@@ -111,6 +115,7 @@ export default function Places(props){
                 return (
                     <div className='searchPage'>  
                         <SearchResult
+                            id={place._id}
                             img={place.img1}
                             location={place.address}
                             title={place.name}

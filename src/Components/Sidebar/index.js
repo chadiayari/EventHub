@@ -14,7 +14,8 @@ const Sidebar = ({ isOpen, toggle }) => {
 
   const handleLogout = ( ) =>{
     localStorage.setItem('loggedIn','false')
-    console.log(localStorage.getItem('loggedIn'))
+
+    localStorage.setItem('userBody',JSON.stringify({}))
   }
 
   return (
