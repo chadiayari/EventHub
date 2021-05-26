@@ -69,7 +69,10 @@ class Event extends React.Component{
                 <p>Starts on: {this.state.event.startDate}</p>
                 <p>Ends on: {this.state.event.endDate}</p>
                 </i>
-                <a style={{margin:'1%',transform:'translateX(115px)'}} id="emailMe" className="eventbutton" href={`mailto:${this.state.event.mail}?subject=?`}>Contact Now</a>
+                <a style={{margin:'1%',transform:'translateX(115px)'}}
+                  id="emailMe" className="eventbutton" href={`mailto:${this.state.event.organizerEmail}?subject=?`}>
+                    Contact Now
+                </a>
                 <Link to="/events">
                 <button className="eventbutton">Other events</button>
                 </Link>
