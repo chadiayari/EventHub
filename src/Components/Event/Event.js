@@ -3,6 +3,7 @@ import './Event.css';
 import Navbar from "../Navbar"
 import axios from 'axios'
 import { Link } from 'react-router-dom';
+import { userService } from '../../services/user.service';
 
 
 
@@ -22,15 +23,11 @@ class Event extends React.Component{
     axios.get(`http://localhost:5000/api/evenement/${this.props.match.params.id}`)
         .then(res => {
             const tags=res.data.tags
-            console.log("updating user ",localStorage.getItem('userId') , " with taggs :" ,tags  )
             this.setState({
                 event : res.data
             })
             
-            
-            axios.post(`http://localhost:5000/api/users/update/${localStorage.getItem('userId')}`,{
-                interests : tags
-            })
+            userService.addInterest(localStorage.getItem('userId'),tags)
                 .then(res =>{
                     localStorage.setItem('userBody',JSON.stringify(res.data))
                     console.log("updated interests")})
