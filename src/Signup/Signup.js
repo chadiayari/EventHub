@@ -1,11 +1,10 @@
 import React,{useState} from 'react'
 import axios from 'axios'
 import { Form, Input, Button, Checkbox } from 'antd';
-import './Login.css'
+import './Signup.css'
 import { Redirect } from 'react-router-dom'
 import Navbar from '../Components/Navbar';
 import Sidebar from '../Components/Sidebar';
-import GoogleLogin from 'react-google-login';
 
 const layout = {
     labelCol: {
@@ -22,9 +21,9 @@ const layout = {
     },
   };
 
-export default function Login(){
+export default function Signup(){
 
-    const [loggedIn,setLoggedIn] = useState(false)
+    const [signedup,setSignedup] = useState(false)
     const [isOpen, setIsOpen] = useState(false);
      
     
@@ -32,40 +31,40 @@ export default function Login(){
         setIsOpen(!isOpen);
       };
 
-      const responseGoogle = (response) => {
-        console.log(response);
-      }
-
 
     const onFinish = (values) => {
-        axios.post('http://localhost:5000/api/auth',{
-            email : values.email,
-            password: values.password
-        })
+      console.log("values",values)
+
+      const req = {
+        fullName: values.fullName,
+        email : values.email,
+        password: values.password,
+        phoneNumber: values.phoneNumber,
+        isAdmin:false
+    }
+    console.log("request",req)
+        axios.post('http://localhost:5000/api/users/add',req)
         .then(res => {
-          setLoggedIn(true)
-          localStorage.setItem("loggedIn",true)
-          localStorage.setItem('userId',res.data.user._id)
-          localStorage.setItem('token',res.data.token)
-          localStorage.setItem('userBody',JSON.stringify(res.data.user))
+          setSignedup(true)
+         
     })
         .catch(err => console.error(err))
       };
     
       const onFinishFailed = (errorInfo) => {
-        alert('invalid email or password')
+        console.log('Sign Up Failed')
       };
 
       
-      if(loggedIn){
-        return <Redirect to="/"/>
+      if(signedup){
+        return <Redirect to="/login"/>
       }else{
         return(
           <div>
           <Navbar toggle={toggle} />
           <Sidebar isOpen={isOpen} toggle={toggle} />
   
-          <div className="login" style={{marginTop:"10%"}}>
+          <div className="Signup" style={{marginTop:"7%"}}>
               <Form {...layout}
               name="basic"
               initialValues={{
@@ -75,8 +74,26 @@ export default function Login(){
               onFinishFailed={onFinishFailed}
               >
   
-              <Form.Item style={{color:'white', margin: "14px 0"}}
-                label="email"
+         <Form.Item style={{color:'white', margin: "1px 0"}}
+                label="Full Name"
+                name="fullName"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your Full Name!',
+                  },
+                ]}
+              >
+              <div style={{margin: "14px 0"}}>
+                <Input/>
+              </div>            
+              
+              </Form.Item >
+              <br />
+
+              
+              <Form.Item style={{color:'white', margin: "1px 0"}}
+                label="Email"
                 name="email"
                 rules={[
                   {
@@ -88,11 +105,27 @@ export default function Login(){
               >
               <div style={{margin: "14px 0"}}>
                 <Input/>
-              </div>
+              </div>            
               
               </Form.Item >
               <br />
-              <Form.Item style={{color:'white', margin: "14px 0"}}
+
+
+              <Form.Item style={{color:'white', margin: "1px 0"}}
+                label="Phone Number"
+                name="phoneNumber"
+               
+              >
+              <div style={{margin: "14px 0"}}>
+                <Input/>
+              </div>            
+              
+              </Form.Item >
+              <br />
+
+              
+
+              <Form.Item style={{color:'white', margin: "1px 0"}}
                 label="Password"
                 name="password"
                 rules={[
@@ -116,21 +149,6 @@ export default function Login(){
                   Submit
                 </Button>
               </Form.Item>
-
-                <Form.Item>
-                <div style={{width:'fit-content',transform:'translateX(20%)translateY(25%)'}}>
-                <GoogleLogin
-                
-                  clientId="822067349500-0m6loj1jlhp774m54svosk5aoc97utkd.apps.googleusercontent.com"
-                  onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
-                  
-                />
-                </div>
-
-               
-                </Form.Item>
-              
   
             </Form>
           </div>

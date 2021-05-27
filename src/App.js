@@ -11,6 +11,8 @@ import Login from './Login/Login';
 import Events from './Components/Events/Events';
 import Event from './Components/Event/Event';
 import Success from './Components/Places/Success';
+import Signup from './Signup/Signup';
+
 
 function App() {
 
@@ -33,6 +35,8 @@ function App() {
       <Route path="/login" component={Login}/>
       <Route path="/events" render={(props) => <Events {...props} />} />
       <Route path="/event/:id" render={(props) => <Event {...props} />} />
+      <Route path="/signup" component={Signup}/>
+
 
       </Switch>
       </div>
